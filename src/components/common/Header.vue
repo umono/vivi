@@ -2,17 +2,22 @@
     <n-layout class="w-full max-w-screen-2xl fixed z-50">
         <div class="header-box py-4 px-6">
             <n-space>
-                <div class="text-3xl vivi cursor-pointer" @click="$router.push('/')">
+                <div class="md:block hidden text-3xl vivi cursor-pointer" @click="$router.push('/')">
                     Vivi
                 </div>
                 <n-button quaternary @click="$router.push('/')">
-                    <span class="font-bold" :class="currentRouteStr == '/file' ? 'text-gray-500' : ''">
+                    <span class="font-bold" :class="currentRouteStr != '/' ? 'text-gray-500' : ''">
                         🎨 发现
                     </span>
                 </n-button>
                 <n-button quaternary class="font-bold" @click="$router.push('/file')">
-                    <span class="font-bold" :class="currentRouteStr == '/' ? 'text-gray-500' : ''">
+                    <span class="font-bold" :class="currentRouteStr != '/file' ? 'text-gray-500' : ''">
                         🗂️ 上传
+                    </span>
+                </n-button>
+                <n-button quaternary class="font-bold" @click="$router.push('/nft')">
+                    <span class="font-bold" :class="currentRouteStr != '/nft' ? 'text-gray-500' : ''">
+                        ♨️ NFT
                     </span>
                 </n-button>
             </n-space>
@@ -100,10 +105,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@font-face {
-    font-family: 'Rocher';
-    src: url(https://assets.codepen.io/9632/RocherColorGX.woff2);
-}
 
 .header-box {
     display: flex;

@@ -16,6 +16,7 @@
 import FileCard from './components/fileCard.vue';
 export default defineComponent({
     components: { FileCard },
+    name:"HOME",
     setup() {
         return {
         }

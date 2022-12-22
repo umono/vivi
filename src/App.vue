@@ -8,9 +8,9 @@
     <div class="m-auto max-w-screen-2xl">
       <Header :theme="theme" :locale="store.state.theme.locale" />
       <div class="pt-[98px]"></div>
-      <router-view></router-view>
+      <router-view >
+      </router-view>
     </div>
-
     <n-global-style />
   </n-config-provider>
 </template>

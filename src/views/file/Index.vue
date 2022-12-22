@@ -9,9 +9,9 @@
 import { NButton } from 'naive-ui'
 import { RowData } from 'naive-ui/es/data-table/src/interface';
 export default defineComponent({
+    name:"File",
     setup() {
         const loading = ref(true);
-
         const createColumns = (
             { Share, Open }: {
                 Share: (rowData: RowData) => void;

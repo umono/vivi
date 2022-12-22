@@ -6,8 +6,8 @@ export default [
         component: () => import('@/views/file/Index.vue'),
     },
     {
-        path: '/project/:name',
-        name: "Project",
-        component: () => import('@/views/project/info/Index.vue'),
+        path: '/nft/',
+        name: "NftSale",
+        component: () => import('@/views/nft/Index.vue'),
     }
 ]
