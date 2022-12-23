@@ -2,20 +2,25 @@
     <n-layout class="w-full max-w-screen-2xl fixed z-50">
         <div class="header-box py-4 px-6">
             <n-space>
+                <n-button quaternary strong circle class="md:hidden btn-shadow" @click="showMenu = !showMenu">
+                    <n-icon size="20">
+                        <Apps24Filled />
+                    </n-icon>
+                </n-button>
                 <div class="md:block hidden text-3xl vivi cursor-pointer" @click="$router.push('/')">
                     Vivi
                 </div>
-                <n-button quaternary @click="$router.push('/')">
+                <n-button class="md:block hidden" quaternary @click="$router.push('/')">
                     <span class="font-bold" :class="currentRouteStr != '/' ? 'text-gray-500' : ''">
                         {{ $t('header.find') }}
                     </span>
                 </n-button>
-                <n-button quaternary class="font-bold" @click="$router.push('/file')">
+                <n-button class="md:block hidden" quaternary @click="$router.push('/file')">
                     <span class="font-bold" :class="currentRouteStr != '/file' ? 'text-gray-500' : ''">
                         {{ $t('header.file') }}
                     </span>
                 </n-button>
-                <n-button quaternary class="font-bold" @click="$router.push('/nft')">
+                <n-button class="md:block hidden" quaternary @click="$router.push('/nft')">
                     <span class="font-bold" :class="currentRouteStr != '/nft' ? 'text-gray-500' : ''">
                         {{ $t('header.nft') }}
                     </span>
@@ -38,11 +43,30 @@
                 </n-button>
             </n-space>
         </div>
+        <n-drawer v-model:show="showMenu" width="50%" placement="left">
+            <n-drawer-content>
+                <n-button class="w-full py-6" quaternary @click="$router.push('/'); showMenu = false;">
+                    <span class="font-bold" :class="currentRouteStr != '/' ? 'text-gray-500' : ''">
+                        {{ $t('header.find') }}
+                    </span>
+                </n-button>
+                <n-button class="w-full py-6" quaternary @click="$router.push('/file'); showMenu = false;">
+                    <span class="font-bold" :class="currentRouteStr != '/file' ? 'text-gray-500' : ''">
+                        {{ $t('header.file') }}
+                    </span>
+                </n-button>
+                <n-button class="w-full py-6" quaternary @click="$router.push('/nft'); showMenu = false;">
+                    <span class="font-bold" :class="currentRouteStr != '/nft' ? 'text-gray-500' : ''">
+                        {{ $t('header.nft') }}
+                    </span>
+                </n-button>
+            </n-drawer-content>
+        </n-drawer>
     </n-layout>
 </template>
 
 <script lang="ts">
-import { WeatherSunny24Regular, WeatherMoon24Regular } from '@vicons/fluent';
+import { WeatherSunny24Regular, WeatherMoon24Regular, Apps24Filled } from '@vicons/fluent';
 import { useStore } from 'vuex';
 import router from '../../router';
 export default {
@@ -50,6 +74,7 @@ export default {
     components: {
         WeatherSunny24Regular,
         WeatherMoon24Regular,
+        Apps24Filled
     },
     setup(props) {
         const store = useStore();
@@ -105,7 +130,8 @@ export default {
                     store.dispatch("theme/toggle", '');
                 }
             },
-            toggleLanguage
+            toggleLanguage,
+            showMenu: ref(false)
         }
     },
 }
