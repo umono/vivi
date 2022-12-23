@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    CoverPhoto: typeof import('./../components/CoverPhoto.vue')['default']
     Header: typeof import('./../components/common/Header.vue')['default']
     Layout: typeof import('./../components/common/Layout.vue')['default']
     MessageApi: typeof import('./../components/common/message-api.vue')['default']
@@ -27,6 +28,7 @@ declare module '@vue/runtime-core' {
     NProgress: typeof import('naive-ui')['NProgress']
     NSkeleton: typeof import('naive-ui')['NSkeleton']
     NSpace: typeof import('naive-ui')['NSpace']
+    NUpload: typeof import('naive-ui')['NUpload']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

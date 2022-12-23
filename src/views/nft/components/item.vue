@@ -2,8 +2,11 @@
     <div>
         <div class="py-2.5  px-3 flex justify-between rounded-md items-center">
             <div class="md:w-1/5 sm:w-2/4 flex cursor-pointer">
-                <n-image width="48" v-if="item.image_url" style="min-width:48px;"
-                    class="rounded-md h-12 bg-gray-200 overflow-hidden" :src="item.image_url" object-fit="cover" lazy />
+                <n-image width="48"
+                v-if="item.image_url"
+                 :key="item.contract_address + item.token_id"
+                    style="min-width:48px;" class="rounded-md h-12 bg-gray-200 overflow-hidden" :src="item.image_url"
+                    object-fit="cover" lazy />
                 <div v-else class="rounded-md h-12 bg-gray-200" style="min-width:48px;">
                 </div>
                 <div class="pl-2 md:w-full w-[100px] min-w-[150px] font-bold" @click="goEthHashScan(item)">

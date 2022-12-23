@@ -4,5 +4,8 @@ export default {
         file: '🗂️ File',
         nft: '♨️ NFT',
         cw: 'Connect Wallet'
+    },
+    file:{
+        title:'File sample'
     }
 }

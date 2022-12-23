@@ -10,9 +10,19 @@ http.interceptors.request.use((config: any) => {
 });
 
 
-const FileUpload = () => {
-    const url = import.meta.env.VV_FILE_URL
-    http.post('url')
+const FileUpload: any = (cid: string, name: string) => {
+    const url = import.meta.env.VV_FILE_URL_PIN
+    http.interceptors.request.use((config: any) => {
+        config.headers['authorization'] = "Bearer " + import.meta.env.VV_FILE_AUTH_KEY;
+        return config;
+    })
+    const param = { cid: cid, name: name };
+    console.log(param)
+    http.post(url, param).then(r => {
+        console.log('ok', r);
+    }).catch(r => {
+        console.log("err", r);
+    })
 }
 
 const NftTradeData: any = () => {
@@ -26,7 +36,7 @@ const NftTradeData: any = () => {
         return r.data;
     })
     // .catch(r => {
-        // console.log("[nft err]:",r);
+    // console.log("[nft err]:",r);
     // })
 }
 
