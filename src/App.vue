@@ -6,7 +6,7 @@
       <MessageApi />
     </n-message-provider>
     <div class="m-auto max-w-screen-2xl">
-      <Header :theme="theme" :locale="store.state.theme.locale" />
+      <Header :theme="theme"/>
       <div class="pt-[98px]"></div>
       <router-view >
       </router-view>
@@ -32,6 +32,12 @@ export default defineComponent({
     let theme = computed(() => {
       return store.getters['theme/getTheme'];
     })
+    let localeStr = computed(()=>{
+      return store.getters['theme/getLocaleStr']
+    })
+
+    provide("localeStr", localeStr)
+
     return {
       locale: ref<NLocale | null>(null),
       dateLocale: ref<NDateLocale | null>(null),

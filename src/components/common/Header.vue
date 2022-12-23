@@ -7,17 +7,17 @@
                 </div>
                 <n-button quaternary @click="$router.push('/')">
                     <span class="font-bold" :class="currentRouteStr != '/' ? 'text-gray-500' : ''">
-                        🎨 发现
+                        {{ $t('header.find') }}
                     </span>
                 </n-button>
                 <n-button quaternary class="font-bold" @click="$router.push('/file')">
                     <span class="font-bold" :class="currentRouteStr != '/file' ? 'text-gray-500' : ''">
-                        🗂️ 上传
+                        {{ $t('header.file') }}
                     </span>
                 </n-button>
                 <n-button quaternary class="font-bold" @click="$router.push('/nft')">
                     <span class="font-bold" :class="currentRouteStr != '/nft' ? 'text-gray-500' : ''">
-                        ♨️ NFT
+                        {{ $t('header.nft') }}
                     </span>
                 </n-button>
             </n-space>
@@ -30,10 +30,12 @@
                         </n-icon>
                     </template>
                 </n-button>
-                <n-dropdown trigger="hover" :options="languageOptions" @select="handleLanguageSelect">
+                <n-dropdown trigger="hover" :options="languageOptions" @select="handleLanguageSelect($event, $i18n)">
                     <n-button quaternary class="btn-shadow">{{ languageStr }}</n-button>
                 </n-dropdown>
-                <n-button quaternary class="btn-shadow bg-indigo-700 text-white">Connect Wallet</n-button>
+                <n-button quaternary class="btn-shadow bg-indigo-700 text-white">
+                    {{ $t('header.cw') }}
+                </n-button>
             </n-space>
         </div>
     </n-layout>
@@ -44,7 +46,7 @@ import { WeatherSunny24Regular, WeatherMoon24Regular } from '@vicons/fluent';
 import { useStore } from 'vuex';
 import router from '../../router';
 export default {
-    props: ["theme", "locale"],
+    props: ["theme"],
     components: {
         WeatherSunny24Regular,
         WeatherMoon24Regular,
@@ -63,21 +65,14 @@ export default {
             },
             {
                 label: '中文',
-                key: 'zh-CN'
+                key: 'zh_CN'
             }
         ]
         let languageStr: any = ref(null);
-        if (props.locale) {
-            languageStr.value = '中文';
-        }
-        const toggleLanguage = (language: string) => {
-            store.dispatch("theme/toggleLanguage", language);
-        }
 
-        const handleLanguageSelect = (key: string) => {
-            toggleLanguage(key);
+        const langStr = (key: string) => {
             switch (key) {
-                case 'zh-CN':
+                case 'zh_CN':
                     languageStr.value = '中文';
                     break;
                 case 'en_US':
@@ -85,6 +80,18 @@ export default {
                 default:
                     break;
             }
+        }
+        langStr(store.state.theme.localeStr)
+
+        const toggleLanguage = (language: string) => {
+            store.dispatch("theme/toggleLanguage", language);
+        }
+
+        const handleLanguageSelect = (key: string, i18n: any) => {
+            i18n.locale = key;
+            toggleLanguage(key);
+            localStorage.setItem('lang', key)
+            langStr(key);
         }
         return {
             currentRouteStr,
@@ -105,7 +112,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .header-box {
     display: flex;
     align-items: center;

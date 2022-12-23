@@ -1,11 +1,10 @@
 <template>
     <div class="pt-20 m-auto max-w-screen-lg overflow-hidden">
-        <div class="rocher-number text-4xl h-16">
-            <n-button class="animate-bounce">测试</n-button>
+        <div class="rocher-number text-4xl h-6">
             <n-progress type="line" v-if="percentage > 0" color="rgb(163 163 163)" :border-radius="0"
                 :fill-border-radius="0" :percentage="percentage" :show-indicator="false" />
         </div>
-        <div ref="container">
+        <div>
             <Item :class="notInit(item) ? 'to-' + (index + 1) : ''" v-for="(item, index) in lists"
                 :data-v-name="'n-l-i' + (index + 1)" :key="'n-l-i' + index" :item="item" />
         </div>
@@ -25,7 +24,9 @@ export default defineComponent({
         let oldUidArr: any = [];
         const loading = ref(true);
         const lists = ref([] as any);
-        let percentage = ref(0)
+        let percentage = ref(0);
+        let isRefresh = false;
+
 
         const copy = async () => {
             oldUidArr = JSON.parse(JSON.stringify(uidArr.value));
@@ -55,6 +56,7 @@ export default defineComponent({
             }
             percentage.value = 0;
             number = 0;
+            isRefresh = false;
         }
 
         onMounted(() => {
@@ -63,8 +65,10 @@ export default defineComponent({
 
         let refreshTimer = setInterval(() => {
             if (number >= 105) {
-
-                copy();
+                if(!isRefresh){
+                    isRefresh = true;
+                    copy();
+                }
             } else {
                 number = number + 1;
                 percentage.value = number;
